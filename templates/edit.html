@@ -1,0 +1,60 @@
+<html>
+{% include "header.html" %}
+<form class="form-horizontal" action="/edit/{{host}}" method="post">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Configuration for {{ host }}</legend>
+
+<!-- Multiple Checkboxes (inline) -->
+<div class="control-group">
+  <label class="control-label" for="ssl">SSL</label>
+  <div class="controls">
+    <label class="checkbox inline" for="ssl-0">
+       {% if mapping.serverssl %}
+      <input type="checkbox" checked name="ssl" id="ssl-0" value="Enable" class="enable-ssl">
+      {% else %}
+      <input type="checkbox" name="ssl" id="ssl-0" value="Enable" class="enable-ssl">
+      {% endif %}
+      Enable
+    </label>
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="control-group ssl-inputs">
+  <label class="control-label" for="ssl_certificate">SSL Certificate</label>
+  <div class="controls">
+      <textarea id="ssl_certificate" name="ssl_certificate">{{mapping.servercertificate}}</textarea>
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="control-group ssl-inputs">
+  <label class="control-label" for="ssl_key">SSL Key</label>
+  <div class="controls">
+      <textarea id="ssl_key" name="ssl_key">{{mapping.serverkey}}</textarea>
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="control-group">
+  <label class="control-label" for="remotes">Remote in the form frontend:host:port</label>
+  <div class="controls">
+      <textarea id="remotes" name="remotes">{{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}</textarea>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="submit"></label>
+  <div class="controls">
+      <button id="submit" type=submit name="submit" class="btn btn-primary">Submit</button>
+      <a class="btn btn-primary" href="/host/{{host}}">Back</a>
+  </div>
+</div>
+{% include "statics.html" %}
+{% if mapping.serverssl %}
+<script>var do_show = true</script>
+{% endif %}
+</html>

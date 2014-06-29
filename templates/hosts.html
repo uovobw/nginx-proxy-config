@@ -1,0 +1,10 @@
+<html>
+{% include "header.html" %}
+<h1>
+Please select a host to configure
+</h1>
+{% for host in hosts %}
+<a href="/host/{{host}}" class="btn btn-primary">{{ host | safe }}</a>
+{% endfor %}
+{% include "statics.html" %}
+</html>

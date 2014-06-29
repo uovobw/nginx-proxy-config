@@ -1,0 +1,43 @@
+<html>
+{% include "header.html" %}
+<h1>
+Configuration for host <b>{{host.displayname}}</b>
+</h1>
+<b>Address</b>: {{host.address}}
+{% for mapping in mappings %}
+<table class="table">
+    <tr>
+        <td>
+        <a class="remover btn btn-danger" href="/remove/{{host.displayname}}/{{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}">X</a>
+        <b>Remote</b>
+        </td>
+        <td>
+            {{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}<br>
+        </td>
+    </tr>
+{% if mapping.serverssl %}
+    <tr>
+        <td><b>SSL</b></td>
+        <td>Enabled</td>
+    </tr>
+    <tr>
+        <td><b>SSLCertificate</b></td>
+        <td>{{ mapping.servercertificate }}</td>
+    </tr>
+    <tr>
+        <td><b>SSLKey</b></td>
+        <td>{{ mapping.serverkey }}<td>
+    </tr>
+{% else %}
+    <tr>
+        <td><b>SSL</b></td>
+        <td>Disabled</td>
+    </tr>
+{% endif %}
+</table>
+{% endfor %}
+<br>
+<a href="/edit/{{host.displayname}}" class="btn btn-primary">Add Mapping</a>
+<a href="/hosts" class="btn btn-primary">Done</a>
+{% include "statics.html" %}
+</html>
