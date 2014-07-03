@@ -56,6 +56,8 @@ def edit(host):
             loaded_mapping = parse_mapping(request.form)
         except ValueError as e:
             return render_template("saved.html", error = str(e))
+        if host not in mappings:
+            mappings[host] = []
         mappings[host].append(loaded_mapping)
         save()
         result = apply_remote_config(host)
