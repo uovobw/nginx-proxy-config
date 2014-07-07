@@ -10,11 +10,13 @@ HOSTS={
     "UK" : {
         "displayname" : "UK",
         "port" : 22,
-        "address": "proxy1.example.com"
+        "address": "proxy1.example.com",
+        "displayaddress" : "some.host.com"
     },
     "HK": {
         "displayname" : "HK",
         "port" : 22,
-        "address" : "proxy2.example.com"
+        "address" : "proxy2.example.com",
+        "displayaddress" : "someotherhost.host.com"
     }
 }

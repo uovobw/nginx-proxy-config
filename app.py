@@ -18,6 +18,7 @@ mappings = {}
 for key, value in app.config["HOSTS"].iteritems():
     h = ProxyHost()
     h.address = value["address"]
+    h.displayaddress = value["displayaddress"]
     h.port = value["port"]
     h.displayname = value["displayname"]
     if h.displayname != key:
