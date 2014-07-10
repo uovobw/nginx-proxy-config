@@ -1,5 +1,7 @@
+import hashlib
+
 TEMPLATE = '''
-upstream backend {{
+upstream {backend} {{
     {remote}
 }}
 
@@ -16,7 +18,7 @@ server {{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_set_header X-NginX-Proxy true;
-        proxy_pass http://backend/;
+        proxy_pass http://{backend}/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -35,6 +37,13 @@ class NginxProxy(object):
         self.ssl_key_path = ssl_key_path
         self.remote = remote
 
+    def __generate_random_backend__(self):
+        h = hashlib.sha256()
+        h.update(self.server_name)
+        h.update(self.remote)
+        h.update(str(self.port))
+        return h.hexdigest()[:12]
+
     def gen_config(self):
         d= {
             "remote" : "server " + self.remote + ";",
@@ -43,7 +52,8 @@ class NginxProxy(object):
             "remote" : "server " + self.remote + ";",
             "ssl" : "",
             "ssl_certificate_path" : "",
-            "ssl_key_path" : ""
+            "ssl_key_path" : "",
+            "backend" : self.__generate_random_backend__()
         }
         if self.ssl:
             d.update({
