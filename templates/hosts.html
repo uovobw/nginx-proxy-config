@@ -4,7 +4,10 @@
 Please select a host to configure
 </h1>
 {% for host in hosts %}
-<a href="/host/{{host}}" class="btn btn-primary">{{ host | safe }}</a>
+<div style="width: 150px;">
+<a href="/host/{{host}}" class="btn btn-primary btn-block">{{ host | safe }}</a>
+</div>
+<br>
 {% endfor %}
 {% include "statics.html" %}
 </html>
