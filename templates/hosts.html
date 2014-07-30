@@ -1,13 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 {% include "header.html" %}
+  <body>
+<div class="container">
 <h1>
 Please select a host to configure
 </h1>
-{% for host in hosts %}
-<div style="width: 150px;">
-<a href="/host/{{host}}" class="btn btn-primary btn-block">{{ host | safe }}</a>
-</div>
-<br>
+{% for groupname, hostlist in hosts.iteritems() %}
+    <div class="row">
+        <div class="col-md-1">
+        <span class="label label-warning" >{{ groupname }}</span>
+        </div>
+        {% for host in hostlist %}
+        <div class="col-md-1">
+        <a href="/host/{{host.displayname}}" class="btn btn-primary btn-group">{{ host.displayname | safe }}</a>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
 {% endfor %}
-{% include "statics.html" %}
+</div>
+  </body>
 </html>
