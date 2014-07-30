@@ -63,14 +63,14 @@ def edit(host):
         try:
             loaded_mapping = parse_mapping(request.form)
         except ValueError as e:
-            return render_template("saved.html", error = str(e))
+            return render_template("saved.html", error = str(e), host = host)
         if host not in mappings:
             mappings[host] = []
         mappings[host].append(loaded_mapping)
         save()
         result = apply_remote_config(host)
         if not result:
-            return render_template("saved.html", error = "Cannot apply remote configuration")
+            return render_template("saved.html", error = "Cannot apply remote configuration", host = host)
         return render_template("saved.html", host = host)
 
 @app.route("/remove/<host>/<mapping>")
