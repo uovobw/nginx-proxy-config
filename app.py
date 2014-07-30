@@ -21,6 +21,7 @@ for key, value in app.config["HOSTS"].iteritems():
     h.displayaddress = value["displayaddress"]
     h.port = value["port"]
     h.displayname = value["displayname"]
+    h.group = value["group"]
     if h.displayname != key:
         raise ValueError("%s != $s" %(h.displayname, key))
     hosts[key] = h
@@ -39,7 +40,13 @@ def index():
 
 @app.route("/hosts", methods=["GET"])
 def hosts_route():
-    return render_template("hosts.html", hosts = app.config["HOSTS"].keys())
+    grouped_hosts = {}
+    for h in hosts.values():
+        if h.group in grouped_hosts:
+            grouped_hosts[h.group].append(h)
+        else:
+            grouped_hosts[h.group] = [h]
+    return render_template("hosts.html", hosts = grouped_hosts)
 
 @app.route("/host/<host>", methods = ["GET"])
 def host(host):

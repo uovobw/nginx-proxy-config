@@ -16,6 +16,7 @@ class ProxyMapping(object):
 class ProxyHost(object):
     displayname = "UK"
     port = 22
+    group = "no-group"
     address = "some.host.com"
     assigned_mapping = []
 
