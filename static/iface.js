@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 $(".remover").click(
     function () {
-        $(this).closest("table").remove();
+        $(this).closest("div").closest("div").remove();
     }
 );
 

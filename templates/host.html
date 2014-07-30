@@ -1,43 +1,79 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 {% include "header.html" %}
-<h1>
-Configuration for host <b>{{host.displayname}}</b>
-</h1>
-<b>Address</b>: {{host.displayaddress}}
-{% for mapping in mappings %}
-<table class="table">
-    <tr>
-        <td>
-        <a class="remover btn btn-danger" href="/remove/{{host.displayname}}/{{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}">X</a>
-        <b>Remote</b>
-        </td>
-        <td>
-            {{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}<br>
-        </td>
-    </tr>
+
+<body>
+<div class="container">
+    <h1>
+    Configuration for host <b>{{host.displayname}}</b>
+    </h1>
+
+    <div class="row">
+        <div class="col-md-1">
+        <span class="label label-primary">Address</span>
+        </div>
+        <div class="col-md-11">
+        {{host.displayaddress}}
+        </div>
+    </div>
+    <br>
+    {% for mapping in mappings %}
+    <div class="row">
+        <div class="col-md-1">
+            <a class="remover label label-danger" href="/remove/{{host.displayname}}/{{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}">X</a>
+        </div>
+        <div class="col-md-2">
+            <span class="label label-default">Remote</span>
+        </div>
+        <div class="col-md-9">
+            {{mapping.servername}}:{{mapping.remotehost}}:{{mapping.remoteport}}
+        </div>
+    </div>
 {% if mapping.serverssl %}
-    <tr>
-        <td><b>SSL</b></td>
-        <td>Enabled</td>
-    </tr>
-    <tr>
-        <td><b>SSLCertificate</b></td>
-        <td>{{ mapping.servercertificate }}</td>
-    </tr>
-    <tr>
-        <td><b>SSLKey</b></td>
-        <td>{{ mapping.serverkey }}<td>
-    </tr>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+        <span class="label label-default">SSL</span>
+        </div>
+        <div class="col-md-9">
+        Enabled
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+        <span class="label label-default">SSLCertificate</span>
+        </div>
+        <div class="col-md-9">
+        {{ mapping.servercertificate }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+        <span class="label label-default">SSLKey</span>
+        </div>
+        <div class="col-md-9">
+        {{ mapping.serverkey }}
+        </div>
+    </div>
 {% else %}
-    <tr>
-        <td><b>SSL</b></td>
-        <td>Disabled</td>
-    </tr>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+        <span class="label label-default">SSL</span>
+        </div>
+        <div class="col-md-9">
+        Disabled
+        </div>
+    </div>
 {% endif %}
-</table>
+    <br>
 {% endfor %}
-<br>
 <a href="/edit/{{host.displayname}}" class="btn btn-primary">Add Mapping</a>
 <a href="/hosts" class="btn btn-primary">Done</a>
-{% include "statics.html" %}
+
+</div>
+  </body>
 </html>
