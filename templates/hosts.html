@@ -12,8 +12,8 @@ Please select a host to configure
         <span class="label label-warning" >{{ groupname }}</span>
         </div>
         {% for host in hostlist %}
-        <div class="col-md-1">
-        <a href="/host/{{host.displayname}}" class="btn btn-primary btn-group">{{ host.displayname | safe }}</a>
+        <div class="col-md-2">
+        <a href="/host/{{host.displayname}}" class="btn btn-primary btn-block">{{ host.displayname | safe }}</a>
         </div>
         {% endfor %}
     </div>
