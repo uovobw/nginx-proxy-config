@@ -18,7 +18,7 @@ server {{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
         proxy_set_header X-NginX-Proxy true;
-        proxy_pass http://{backend}/;
+        proxy_pass {protocol}://{backend}/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -53,6 +53,7 @@ class NginxProxy(object):
             "ssl" : "",
             "ssl_certificate_path" : "",
             "ssl_key_path" : "",
+            "protocol": "http",
             "backend" : self.__generate_random_backend__()
         }
         if self.ssl:
@@ -60,6 +61,7 @@ class NginxProxy(object):
                 "ssl" : "ssl on;",
                 "ssl_certificate_path" : "ssl_certificate " + self.ssl_certificate_path + ";",
                 "ssl_key_path" : "ssl_certificate_key " + self.ssl_key_path + ";",
+                "protocol": "https"
             })
         return TEMPLATE.format(**d)
 
