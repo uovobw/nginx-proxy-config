@@ -3,6 +3,7 @@ import logging
 import os
 import errno
 import socket
+import time
 
 class RemoteExecutor(object):
     def __init__(self, host, port, username, keyfile):
@@ -50,10 +51,22 @@ class RemoteExecutor(object):
         sftp = self.client.open_sftp()
         try:
             sftp.putfo(fd, remotename)
+            while not self.check_file_exists(remotename):
+                time.sleep(0.5)
         except Exception as e:
             logging.error("Cannot copy file to " + remotename + " due to " + str(e))
             raise e
         sftp.close()
+
+    def mkdir(self, dirname):
+        sftp = self.client.open_sftp()
+        try:
+            sftp.mkdir(dirname)
+        except IOError:
+            logging.error("cannot create remote dir " + dirname)
+        sftp.close()
+
+
 
     def send_command(self, command):
         try:

@@ -122,7 +122,8 @@ def apply_remote_config(host):
                 ssl_dirname = app.config["NGINX_SSL_DIR"] + "/" + safename
                 cert_fname = ssl_dirname + "/server.crt"
                 key_fname = ssl_dirname + "/server.key"
-                e.send_command("sudo mkdir -p " + ssl_dirname)
+                #e.send_command("sudo mkdir -p " + ssl_dirname)
+                e.mkdir(ssl_dirname)
                 e.send_file(StringIO.StringIO(m.servercertificate), cert_fname)
                 e.send_file(StringIO.StringIO(m.serverkey), key_fname)
                 c.ssl = True
